@@ -44,9 +44,8 @@ export default {
       onSubmit(e) {
         e.preventDefault()
 
-        if (this.text !== '') {
+        if (this.task !== '') {
           const newTask = {
-            id: Math.floor(Math.random() * 100000),
             text: this.task,
             day: this.date,
             reminder: this.reminder          

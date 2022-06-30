@@ -34,15 +34,50 @@ export default {
     }
   },
   methods: {
-    addTask(task) {
-      this.tasks = [...this.tasks, task]
-    },
-    deleteTask(id) {
-      this.tasks = this.tasks.filter((task) => {
-        return task.id !== id
+    async addTask(task) {
+      const response = await fetch('api/tasks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(task)
       })
+      const data = await response.json()
+
+      this.tasks = [...this.tasks, data]
     },
-    toggleReminder(id) {
+    async deleteTask(id) {
+      const response = await fetch(`api/tasks/${id}`, {
+        method: 'DELETE'
+      })
+      if (response.status === 200) {
+        this.tasks = this.tasks.filter((task) => {
+          return task.id !== id
+        })
+      }
+    },    
+    async fetchTasks() {
+      const response = await fetch('api/tasks')
+      const data = await response.json()
+      return data
+    },
+    async toggleReminder(id) {
+      const fetchTasks = await this.fetchTasks()
+      let updateData
+      fetchTasks.forEach(task => {
+        if (task.id === id) {
+          updateData = {...task, reminder: !task.reminder}
+        }
+      })
+
+      fetch(`api/tasks/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updateData)
+      })  
+
       this.tasks = this.tasks.map((task) => {
         if (task.id === id) {
           return {...task, reminder: !task.reminder}
@@ -53,29 +88,10 @@ export default {
     },
     showForm() {
       this.showAddTask = !this.showAddTask
-    },
+    }
   },
-  created() {
-    this.tasks = [
-      {
-        id: 1,
-        text: 'Doctors Appointment',
-        day: 'March 1st at 2:30pm',
-        reminder: true
-      },
-      {
-        id: 2,
-        text: 'Meeting at School',
-        day: 'March 3rd at 1:30pm',
-        reminder: true
-      },
-      {
-        id: 3,
-        text: 'Visit Grandparents',
-        day: 'March 5th at 12:00pm',
-        reminder: false
-      }
-    ]
+  async created() {
+    this.tasks = await this.fetchTasks()
   }
 }
 </script>
