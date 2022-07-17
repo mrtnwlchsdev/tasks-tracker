@@ -2,8 +2,7 @@
 
 ## Basic Vue application
 - Vue.js 3
-- HTML
-- CSS
+- Bootstrap 5
 
 ## Deploy 🛠️
 
