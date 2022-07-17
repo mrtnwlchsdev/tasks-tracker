@@ -1,4 +1,4 @@
-# Tasks Tracker
+# Tasks Tracker :pencil:
 
 ## Basic Vue application
 - Vue.js 3
