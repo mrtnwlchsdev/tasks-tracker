@@ -1,19 +1,14 @@
-# task-tracker
+# Tasks Tracker
 
-## Project setup
-```
-npm install
-```
+## Basic Vue application
+- Vue.js 3
+- HTML
+- CSS
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Deploy 🛠️
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+    $ git clone https://github.com/mrtnwlchsdev/tasks-tracker.git
+  
+    $ npm install
+  
+    $ npm run serve
